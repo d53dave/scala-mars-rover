@@ -1,8 +1,5 @@
 package spatial
 
-/**
-  * Created by dsere on 28/02/2017.
-  */
 sealed trait Orientation
 
 case object North extends Orientation
