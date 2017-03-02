@@ -20,6 +20,9 @@ trait Terrain[Pos <: Position] {
   * would change the orientation to south as it should if the Terrain were to model a spherical geography
   * like, for example, a planet)
   *
+  * The class will perform an assertion over the passed in width and heights, since having 0 or negative
+  * dimensions here is not a recoverable situation.
+  *
   * @param width
   * @param height
   */
@@ -27,13 +30,16 @@ class Terrain2D(width: Long, height: Long) extends Terrain[Position2D] {
   assert(width > 0 && height > 0, "Both dimensions must be > 0")
 
   override def performMove(fromPosition: Position2D, move: Move): Position2D = {
-    val moveDirectionVal = move match {
-      case MoveBackward(_) => -1
-      case MoveForward(_)  =>  1
+
+    val moveDelta = move match {
+      case MoveBackward(o) =>  if (southOrEast(o)) -1 else  1
+      case MoveForward(o)  =>  if (southOrEast(o))  1 else -1
     }
+
+
     move.orientation match {
-      case North | South => Position2D(fromPosition.x, addAndWrapVertical(fromPosition.y, moveDirectionVal))
-      case East  | West  => Position2D(addAndWrapHorizontal(fromPosition.y, moveDirectionVal), fromPosition.y)
+      case North | South => Position2D(fromPosition.x, addAndWrapVertical(fromPosition.y, moveDelta))
+      case East  | West  => Position2D(addAndWrapHorizontal(fromPosition.x, moveDelta), fromPosition.y)
     }
   }
 
@@ -44,6 +50,8 @@ class Terrain2D(width: Long, height: Long) extends Terrain[Position2D] {
   private def addAndWrapHorizontal(start: Long, offset: Long): Long = {
     (start + offset) % this.width
   }
+
+  private def southOrEast(orientation: Orientation) = orientation == South || orientation == East
 }
 
 object Terrain2D {
