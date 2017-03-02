@@ -1,13 +1,28 @@
 package net.d53dev.scalamarsrover
 
-/**
-  * Created by dsere on 28/02/2017.
-  */
 
+/** This trait represents a Terrain that the [[Rover]] moves on.
+  *
+  * It has only one abstract method which models a move: it takes an initial position and an intended move.
+  * Based on those, a terrain should return a new position
+  *
+  * @tparam Pos the type of positions (or rather coordinates) that the Terrain supports
+  */
 trait Terrain[Pos <: Position] {
   def performMove(fromPosition: Pos, move: Move): Pos
 }
 
+/** An implementation of the Terrain trait that models 2D geography.
+  *
+  * Note that this assumes the world is flat, and the topmost left corner is a [[Position2D]] at (0, 0)
+  * This has the implication that anything that moves over one of the edges will disappear and reappear on the
+  * opposing side of the world (i.e. it does not handle the case where moving north over the 'north pole'
+  * would change the orientation to south as it should if the Terrain were to model a spherical geography
+  * like, for example, a planet)
+  *
+  * @param width
+  * @param height
+  */
 class Terrain2D(width: Long, height: Long) extends Terrain[Position2D] {
   assert(width > 0 && height > 0, "Both dimensions must be > 0")
 
