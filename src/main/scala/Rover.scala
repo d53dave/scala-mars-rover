@@ -15,6 +15,13 @@ import spatial._
   * @tparam T The Rover is parametrized over the type of positions (i.e. Position2D, 3D, etc.) it supports.
   */
 class Rover[T <: Position](val terrain: Terrain[T], val position: T, val orientation: Orientation) {
+
+  def move(commands: List[RoverCommand]): Rover[T] = {
+    commands.foldLeft(this)(
+      (rover, cmd) => {println(s"Executing command $cmd on rover $rover"); rover.move(cmd)}
+    )
+  }
+
   def move(command: RoverCommand): Rover[T] = {
     command match {
 
@@ -38,9 +45,9 @@ class Rover[T <: Position](val terrain: Terrain[T], val position: T, val orienta
   private def rotateLeft = {
     this.orientation match {
       case North => West
-      case East  => East
-      case South => South
-      case West  => North
+      case East  => North
+      case South => East
+      case West  => South
     }
   }
 

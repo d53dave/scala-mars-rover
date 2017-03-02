@@ -19,11 +19,7 @@ class MoveCheck extends Specification with ScalaCheck { def is = s2"""
         val terrain = new Terrain2D(width, height)
         val startPos =  new Position2D(x, y)
 
-        val roverAtLastPos = commands.foldLeft(Rover[Position2D](terrain, startPos, orientation))(
-          (rover, cmd) => rover.move(cmd)
-        )
-
-        val lastPos = roverAtLastPos.position
+        val lastPos = Rover(terrain, startPos, orientation).move(commands).position
 
         lastPos.x must beLessThan(width)
         lastPos.x must beGreaterThanOrEqualTo(0L)
