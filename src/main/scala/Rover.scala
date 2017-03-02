@@ -1,9 +1,17 @@
 package net.d53dev.scalamarsrover
-/**
-  * Created by dsere on 28/02/2017.
+
+/** This class represents the main entity of this exercise: the Rover.
+  * It is immutable: moving the rover returns a new instance.
+  *
+  * The rover does not know how to manipulate coordinates, which it delegates to the
+  * underlying Terrain instance. It communicates an intended move to the Terrain,
+  * which returns the position after the move is completed
+  *
+  * @param terrain The terrain on which the rover moves. This accepts
+  * @param position The current position of the rover
+  * @param orientation The orientation that the rover is facing towards
+  * @tparam T The Rover is parametrized over the type of positions (i.e. Position2D, 3D, etc.) it supports.
   */
-
-
 class Rover[T <: Position](val terrain: Terrain[T], val position: T, val orientation: Orientation) {
   def move(command: RoverCommand): Rover[T] = {
     command match {
