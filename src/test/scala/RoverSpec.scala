@@ -21,7 +21,6 @@ class RoverSpec extends Specification with Mockito { def is = s2"""
     val initialPos = Position2D(4, 4)
 
     var rover = Rover(terrain, initialPos, North)
-
     rover.move(Left).orientation mustEqual West
     rover.move(Right).orientation mustEqual East
 
@@ -54,6 +53,27 @@ class RoverSpec extends Specification with Mockito { def is = s2"""
     rover.move(Right).move(Right).move(Right).move(Right).orientation mustEqual North
   }
 
-  def forwardCheck = ???
-  def backwardCheck = ???
+  def forwardCheck = {
+    val returnedPos = Position2D(42, 43)
+    val terrain = mock[Terrain2D]
+    terrain.performMove(any[Position2D], any[Move]) returns returnedPos
+
+    val rover = Rover(terrain, Position2D(1, 1), North)
+
+    rover.move(Forward) mustEqual returnedPos
+
+    there was one(terrain).performMove(Position2D(1, 1), MoveForward(North))
+  }
+  def backwardCheck = {
+    val returnedPos = Position2D(42, 43)
+    val terrain = mock[Terrain2D]
+    terrain.performMove(any[Position2D], any[Move]) returns returnedPos
+
+    val rover = Rover(terrain, Position2D(1, 1), North)
+
+    rover.move(Backward) mustEqual returnedPos
+
+    there was one(terrain).performMove(Position2D(1, 1), MoveBackward(North))
+
+  }
 }
