@@ -30,3 +30,7 @@ class Terrain2D(width: Long, height: Long) extends Terrain[Position2D] {
     (start + offset) % this.width
   }
 }
+
+object Terrain2D {
+  def apply(w: Long, h: Long) = new Terrain2D(w, h)
+}
