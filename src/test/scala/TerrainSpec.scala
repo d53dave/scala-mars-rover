@@ -4,6 +4,8 @@ import org.specs2.Specification
   * Created by dsere on 02/03/2017.
   */
 class TerrainSpec extends Specification { def is = s2"""
+  Basic assumptions
+  |   The terrain must be 1x1 or larger $boundsCheck
 
   The terrain should correctly handle moves
   |   moves forward facing north        $forwardNorth
@@ -15,6 +17,8 @@ class TerrainSpec extends Specification { def is = s2"""
   |   moves forward facing west         $forwardWest
   |   moves backward facing west        $backwardWest
                                  """
+
+  def boundsCheck = ???
 
   def forwardNorth = ???
   def backwardNorth = ???
