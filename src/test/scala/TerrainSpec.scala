@@ -5,23 +5,23 @@ import spatial._
 
 class TerrainSpec extends Specification { def is = s2"""
   Basic assumptions
-  |   The terrain must be 1x1 or larger $boundsCheck
+     The terrain must be 1x1 or larger $boundsCheck
 
   The terrain should correctly handle moves
-  |   moves forward facing north        $forwardNorth
-  |   moves backward facing north       $backwardNorth
-  |   moves forward facing east         $forwardEast
-  |   moves backward facing east        $backwardEast
-  |   moves forward facing south        $forwardSouth
-  |   moves backward facing south       $backwardSouth
-  |   moves forward facing west         $forwardWest
-  |   moves backward facing west        $backwardWest
+     moves forward facing north        $forwardNorth
+     moves backward facing north       $backwardNorth
+     moves forward facing east         $forwardEast
+     moves backward facing east        $backwardEast
+     moves forward facing south        $forwardSouth
+     moves backward facing south       $backwardSouth
+     moves forward facing west         $forwardWest
+     moves backward facing west        $backwardWest
 
-  |  The terrain should correclty handle moves over boundaries
-  |   moves over top boundary           $overTheTop
-  |   moves over left boundary          $overTheLeft
-  |   moves over bottom boundary        $overTheBottom
-  |   moves over right boundary         $overTheRight
+  The terrain should correclty handle moves over boundaries
+     moves over top boundary           $overTheTop
+     moves over left boundary          $overTheLeft
+     moves over bottom boundary        $overTheBottom
+     moves over right boundary         $overTheRight
                                  """
 
   def boundsCheck = {

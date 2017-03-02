@@ -8,12 +8,15 @@ import spatial._
 class RoverSpec extends Specification with Mockito { def is = s2"""
 
   The rover should correctly rotate
-  |  single rotations               $singleRotation
-  |  multiple rotations             $multiRotation
+     single rotations               $singleRotation
+     multiple rotations             $multiRotation
 
   The rover should pass the correct move objects to the terrain
-  | when moving forward             $forwardCheck
-  | when moving backward            $backwardCheck
+    when moving forward             $forwardCheck
+    when moving backward            $backwardCheck
+
+  The rover should end up at the right position
+    when executing multiple moves   $multipleMoves
                                  """
 
   def singleRotation = {
@@ -64,6 +67,7 @@ class RoverSpec extends Specification with Mockito { def is = s2"""
 
     there was one(terrain).performMove(Position2D(1, 1), MoveForward(North))
   }
+
   def backwardCheck = {
     val returnedPos = Position2D(42, 43)
     val terrain = mock[Terrain2D]
@@ -75,5 +79,16 @@ class RoverSpec extends Specification with Mockito { def is = s2"""
 
     there was one(terrain).performMove(Position2D(1, 1), MoveBackward(North))
 
+  }
+
+  def multipleMoves = {
+
+    val targetPos = Position2D(1, 2)
+    val rover = Rover(Terrain2D(10, 10), Position2D(1, 1), North)
+
+    val roverAtTarget = rover.move(List(Forward, Left, Forward, Left, Forward, Forward, Right, Backward))
+
+    roverAtTarget.position mustEqual targetPos
+    roverAtTarget.orientation mustEqual West
   }
 }
