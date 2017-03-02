@@ -46,11 +46,11 @@ class Terrain2D(width: Long, height: Long) extends Terrain[Position2D] {
   }
 
   private def addAndWrapVertical(start: Long, offset: Long): Long = {
-    Math.max(0, (start + offset)) % this.height
+    (this.height + start + offset) % height
   }
 
   private def addAndWrapHorizontal(start: Long, offset: Long): Long = {
-    Math.max(0, (start + offset)) % this.width
+    (this.width + start + offset) % width
   }
 
   private def southOrEast(orientation: Orientation) = orientation == South || orientation == East
