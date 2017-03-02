@@ -50,6 +50,10 @@ class Rover[T <: Position](val terrain: Terrain[T], val position: T, val orienta
       case West  => North
     }
   }
+
+  override def toString = {
+    s"Rover[$position; $orientation]"
+  }
 }
 
 object Rover {
