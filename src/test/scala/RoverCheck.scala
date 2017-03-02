@@ -34,9 +34,9 @@ class RoverCheck extends Specification with ScalaCheck { def is =
     height <- choose(0, 1000)
     startX <- choose(0, width - 1)
     startY <- choose(0, height - 1)
-    startOrientation <- oneOf(North, East, South, West)
+    startOrientation <- Gen.oneOf(North, East, South, West)
   } yield (width, height, startX, startY, startOrientation)
 
-  val commandListGen: Gen[List[RoverCommand]] = listOf(oneOf(Backward, Forward, Left, Right))
+  val commandListGen: Gen[List[RoverCommand]] = listOf(Gen.oneOf(Backward, Forward, Left, Right))
 
 }
