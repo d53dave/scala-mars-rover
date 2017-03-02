@@ -1,7 +1,8 @@
 package spatial
 
-/**
-  * Created by dsere on 28/02/2017.
+/** This class represents a move that the Rover wants to perform on it's underlying terrain
+  *
+  * @param orientation Representing the direction that the rover is facing when doing the move
   */
 abstract class Move(val orientation: Orientation)
 
