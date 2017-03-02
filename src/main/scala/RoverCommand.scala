@@ -1,7 +1,5 @@
 package net.d53dev.scalamarsrover
-/**
-  * Created by dsere on 28/02/2017.
-  */
+
 sealed trait RoverCommand
 
 case object Forward   extends RoverCommand

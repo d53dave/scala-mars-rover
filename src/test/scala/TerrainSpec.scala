@@ -1,6 +1,7 @@
 package net.d53dev.scalamarsrover
 
 import org.specs2.Specification
+import spatial._
 
 class TerrainSpec extends Specification { def is = s2"""
   Basic assumptions

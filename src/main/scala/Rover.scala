@@ -1,5 +1,7 @@
 package net.d53dev.scalamarsrover
 
+import spatial._
+
 /** This class represents the main entity of this exercise: the Rover.
   * It is immutable: moving the rover returns a new instance.
   *

@@ -1,4 +1,5 @@
-package net.d53dev.scalamarsrover
+package spatial
+
 /**
   * Created by dsere on 28/02/2017.
   */

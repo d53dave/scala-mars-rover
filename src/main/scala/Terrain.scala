@@ -1,5 +1,7 @@
 package net.d53dev.scalamarsrover
 
+import spatial._
+
 
 /** This trait represents a Terrain that the [[Rover]] moves on.
   *
