@@ -14,10 +14,12 @@ class RoverCheck extends Specification with ScalaCheck { def is =
        The Rover should, after arbitrary moves, still be on a valid position on the terrain $t1
   """
 
-  def t1 = Prop.forAll(genTerrainSize) { case (width, height) =>
+  def t1 = Prop.forAll(genInitialState) { case (width, height, x, y, orientation) =>
     Prop.forAll(commandListGen) {
       commands =>
-        val roverAtLastPos = commands.foldLeft(Rover(new Terrain2D(width, height), new Position2D(0, 0), North))(
+        val terrain = new Terrain2D(width, height)
+        val startPos =  new Position2D(x, y)
+        val roverAtLastPos = commands.foldLeft(Rover(terrain, startPos, orientation))(
           (rover, cmd) => rover.move(cmd)
         )
 
@@ -27,10 +29,13 @@ class RoverCheck extends Specification with ScalaCheck { def is =
     }
   }
 
-  val genTerrainSize: Gen[(Long, Long)] = for {
-    a <- choose(0, 1000)
-    b <- choose(0, 1000)
-  } yield (a, b)
+  val genInitialState: Gen[(Long, Long, Long, Long, Orientation)] = for {
+    width  <- choose(0, 1000)
+    height <- choose(0, 1000)
+    startX <- choose(0, width - 1)
+    startY <- choose(0, height - 1)
+    startOrientation <- oneOf(North, East, South, West)
+  } yield (width, height, startX, startY, startOrientation)
 
   val commandListGen: Gen[List[RoverCommand]] = listOf(oneOf(Backward, Forward, Left, Right))
 
