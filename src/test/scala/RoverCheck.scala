@@ -3,6 +3,7 @@ package net.d53dev.scalamarsrover
 import org.scalacheck.Gen.{choose, listOf}
 import org.scalacheck.{Gen, Prop}
 import org.specs2.{ScalaCheck, Specification}
+import spatial._
 
 
 
@@ -18,12 +19,11 @@ class RoverCheck extends Specification with ScalaCheck { def is = s2"""
         val terrain = new Terrain2D(width, height)
         val startPos =  new Position2D(x, y)
 
-        //
-        val roverAtLastPos = commands.foldLeft(Rover(terrain, startPos, orientation))(
+        val roverAtLastPos = commands.foldLeft(Rover[Position2D](terrain, startPos, orientation))(
           (rover, cmd) => rover.move(cmd)
         )
 
-        val lastPos = roverAtLastPos.position.asInstanceOf[Position2D]
+        val lastPos = roverAtLastPos.position
 
         lastPos.x must beLessThan(width)
         lastPos.x must beGreaterThanOrEqualTo(0L)
@@ -33,8 +33,8 @@ class RoverCheck extends Specification with ScalaCheck { def is = s2"""
   }
 
   val genInitialState: Gen[(Long, Long, Long, Long, Orientation)] = for {
-    width  <- choose(1, 100)
-    height <- choose(1, 100)
+    width <- choose(1L, 100L)
+    height <- choose(1L, 100L)
     startX <- choose(0, width - 1)
     startY <- choose(0, height - 1)
     startOrientation <- Gen.oneOf(North, East, South, West)
