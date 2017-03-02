@@ -53,7 +53,7 @@ class Rover[T <: Position](val terrain: Terrain[T], val position: T, val orienta
 }
 
 object Rover {
-  def apply[T](terrain: Terrain[T], position: T, orientation: Orientation) =
-    new Rover(terrain, position, orientation)
+  def apply[T <: Position](terrain: Terrain[T], position: T, orientation: Orientation) =
+    new Rover[T](terrain, position, orientation)
 }
 
