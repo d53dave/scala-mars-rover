@@ -7,7 +7,7 @@ import spatial._
 
 
 
-class RoverCheck extends Specification with ScalaCheck { def is = s2"""
+class MoveCheck extends Specification with ScalaCheck { def is = s2"""
 
        The Rover should, after arbitrary moves, still be on a valid position on the terrain $t1
 
